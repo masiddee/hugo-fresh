@@ -36,9 +36,9 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 {{- range $followUs -}}
-                <a class="level-item" href="{{ .url }}">
+                <a class="level-item" href="{{ .url }}" target="_blank">
                   <span class="icon">
-                    <i class="fa fa-{{ .icon }}"></i>
+                    <i class="fab fa-2x {{ .icon }}"></i>
                   </span>
                 </a>
                 {{- end -}}

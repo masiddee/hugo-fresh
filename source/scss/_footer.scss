@@ -3,14 +3,17 @@ Fresh Footer
 ========================================================================== */
 
 footer.footer-dark {
-    background: $blue-grey;
-    color: #fff;
+    background: $primary;
+    color: lighten($secondary,10%);
+    font-weight: 400;
     .columns {
-        margin-top: 35px;
+        margin-top: 15px;
     }
     .footer-logo {
         img {
-            height: 50px;
+            display: block;
+            width: 190px;
+            margin: 0 auto;
         }
     }
     .footer-column {
@@ -25,20 +28,33 @@ footer.footer-dark {
             line-height: 40px;
             font-size: 1.1rem;
             a {
-                color: $light-blue-grey;
+                color: $smoke-white;
                 font-weight: 400;
                 transition: all 0.5s;
             }
             :hover {
-                color: $smoke-white;
+                color: $light-blue-grey;
             }
         }
+        .level-left {
+            margin: 0 auto;
+        }
         .level-item .icon {
-            color: $secondary;
+            color: $smoke-white;
             transition: all 0.5s;
             :hover {
-                color: $smoke-white;
+                color: $light-blue-grey;
             }
+        }
+        p {
+          font-size: .8em;
+          text-align: center;
+          color: $smoke-white;
         }
     }
 }
+
+/* ==========================================================================
+Simple Footer
+========================================================================== */
+

@@ -61,6 +61,21 @@ $(function(){
     }
   });
 
+  // --- CUSTOM CODE MS ---
+  $('.navbar-menu a').on('click', function() {
+    // Get data-scroll-to value
+    var scrollTo = $(this).data('scrollTo');
+    
+    // Get offset().top for specific section
+    var sectionTop = $(`#${scrollTo}-section`).offset().top;
+    
+    // Animate smooth scroll to specific section
+    $('html, body').animate({
+      scrollTop: sectionTop
+    }, scrollSpeed);
+    return false;
+  });
+
   $('#backtotop a').on('click', function() {
     $('html, body').animate({
       scrollTop: 0

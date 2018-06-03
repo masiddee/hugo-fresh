@@ -1,0 +1,33 @@
+{{- $footer := .Site.Params.footer -}}
+{{- $image := $footer.image -}}
+{{- $columns := $footer.columns -}}
+{{- $followUs := $footer.followUs -}}
+<footer class="footer footer-dark">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-one-fifth">
+        <div class="footer-logo">
+          <img src="{{ printf "img/logos/%s" $image | absURL }}">
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-one-fifth">
+        <div class="footer-column">
+          <nav class="level is-mobile">
+            <div class="level-left">
+              {{- range $followUs -}}
+              <a class="level-item" href="{{ .url }}" target="_blank">
+                <span class="icon">
+                  <i class="fab fa-lg {{ .icon }}"></i>
+                </span>
+              </a>
+              {{- end -}}
+            </div>
+          </nav>
+          <p>Copyright &copy; 2018 Alias Pay, Inc. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

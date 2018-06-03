@@ -11,17 +11,6 @@
           <a class="navbar-item" href="{{ .Site.BaseURL }}">
             <img class="brand" src="{{ $logoSrc }}" alt="{{ $logoAlt }}">
           </a>
-          <a id="panel-trigger" href="#left-panel" class="navbar-item navbar-inner hamburger-btn" href="javascript:void(0);">
-            <span class="menu-toggle">
-              <span class="icon-box-toggle">
-                <span class="rotate">
-                  <i class="icon-line-top"></i>
-                  <i class="icon-line-center"></i>
-                  <i class="icon-line-bottom"></i>
-                </span>
-              </span>
-            </span>
-          </a>
         </div>
         <span class="navbar-toggle">
           <span></span>
@@ -31,7 +20,7 @@
         <div class="navbar-end navbar-menu">
           {{- range $links -}}
           {{- if ne .dropdown true }}
-          <a class="navbar-item is-tab navbar-inner" href="{{ .url }}">
+          <a class="navbar-item is-tab navbar-inner" href="#" data-scroll-to="{{ .url }}">
             {{ .text }}
           </a>
           {{- else }}

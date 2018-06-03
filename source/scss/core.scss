@@ -6,9 +6,9 @@ Main SCSS file / Fresh
 $white: #fff;
 $smoke-white: #fcfcfc;
 $grey-white: #f2f2f2;
-$primary: #4FC1EA;
-$secondary: #F39200;
-$accent: #68BB88;
+$primary: #495bc1;
+$secondary: #E86017;
+$accent: #78db97;
 $fade-grey: #ededed;
 $light-grey: #EFF4F7;
 $title-grey: #A9ABAC;
@@ -43,7 +43,7 @@ $section-grey: #fbfbfb;
 
 
 body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: 'Open Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 // Resets
@@ -217,8 +217,8 @@ body #backtotop a {
 
 //Brand
 .brand {
-    height: 32px;
-    max-height: 32px !important;
+    height: 50px;
+    max-height: 50px !important;
     position: relative;
     top: -3px;
 }
@@ -336,7 +336,7 @@ body #backtotop a {
 .big-title {
     color: $dark-grey;
     font-size: 3.2rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 

@@ -1,18 +1,28 @@
 {{- $sellingPoints := .Site.Params.sellingPoints -}}
 {{- $tagline := $sellingPoints.tagline }}
+{{- $subTagline := $sellingPoints.subTagline }}
 {{- $points := $sellingPoints.points }}
+{{- $mainImage := $sellingPoints.mainImage }}
 <section class="section is-medium">
   <div class="container">
+    <div class="title-wrapper huge-pb">
+      <h2 class="title section-title has-text-centered pb-20">{{ $tagline }}</h2>
+      {{- with $subTagline -}}
+      <h3 class="subtitle is-5 has-text-centered">{{ . }}</h3>
+      {{- end -}}
+    </div>
     <div class="columns">
       <div class="column">
-          <h1 class="title section-title">{{ $tagline }}</h1>
+          <!-- <h1 class="title section-title">{{ $tagline }}</h1> -->
+          <img src="{{ printf "img/illustrations/%s" $mainImage | absURL }}">
       </div>
       <div class="column is-7 mt-60">
         {{- range $points -}}
         <article class="media icon-box">
-          <figure class="media-left">
+          <figure class="media-left mt-50">
             <p class="image">
-              <img src="{{ printf "img/illustrations/icons/%s.svg" .icon | absURL }}">
+                <i class="fas fa-2x {{ .icon }}"></i>
+              <!-- <img src="{{ printf "img/illustrations/icons/%s.svg" .icon | absURL }}"> -->
             </p>
           </figure>
           <div class="media-content mt-50">

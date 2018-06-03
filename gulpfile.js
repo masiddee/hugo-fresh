@@ -1,8 +1,7 @@
 const gulp     = require("gulp"),
       sass     = require("gulp-sass"),
       hash     = require("gulp-hash"),
-      prefixer = require("gulp-autoprefixer"),
-      del      = require("del");
+      prefixer = require("gulp-autoprefixer");
 
 const SRCS = {
   sass:      'source/scss/core.scss',
@@ -24,8 +23,6 @@ const hashOptions = {
 }
 
 gulp.task('sass', (done) => {
-  del(['source/css/core-*.css']);
-
   gulp.src(SRCS.sass)
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(prefixer(prefixerOptions))

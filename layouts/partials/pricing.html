@@ -1,0 +1,39 @@
+{{- $pricing := .Site.Params.pricing -}}
+{{- $tagline := $pricing.tagline -}}
+{{- $subTagline := $pricing.subTagline -}}
+{{- $buttonText := $pricing.buttonText -}}
+{{- $planHeader := $pricing.planHeader -}}
+{{- $planPriceAmount := $pricing.planPriceAmount -}}
+{{- $planItems := $pricing.planItems -}}
+
+<section class="section section-light-grey is-medium" id="pricing-section">
+  <div class="container">
+    <div class="title-wrapper huge-pb">
+      <h2 class="title section-title has-text-centered pb-20">{{ $tagline }}</h2>
+      {{- with $subTagline -}}
+      <h3 class="subtitle is-5 has-text-centered">{{ . }}</h3>
+      {{- end -}}
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <div class="pricing-table">
+          <div class="pricing-plan is-active">
+            <div class="plan-header">{{ $planHeader }}</div>
+            <div class="plan-price">
+              <span class="plan-price-amount"><span class="plan-price-currency">$</span>{{ $planPriceAmount }}</span>/transaction
+            </div>
+            <div class="plan-items">
+                {{- range $planItems -}}
+                <div class="plan-item">{{ .description }}</div>
+                {{- end -}}
+            </div>
+            <div class="plan-footer">
+              <button class="button is-fullwidth">{{ $buttonText }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
