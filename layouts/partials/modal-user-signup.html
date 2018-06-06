@@ -1,0 +1,51 @@
+{{- $usersModal := .Site.Params.usersModal }}
+{{- $title := $usersModal.title }}
+{{- $tagline1 := $usersModal.tagline1 -}}
+{{- $tagline2 := $usersModal.tagline2 -}}
+{{- $buttonText := $usersModal.buttonText -}}
+
+
+<div class="modal container" id="modal-user-signup">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head is-theme-secondary">
+        <p class="modal-card-title">{{ $title }}</p>
+        <button class="modal-user-close delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+
+        <p>{{ $tagline1 }}</p>
+        <br>
+        <p>{{ $tagline2 }}</p>
+
+        <form action="" id="subscribe-form" data-parsley-validate>
+          
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Email</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded has-icons-left">
+                  <input class="input" type="email" placeholder="Email" value id="subscriber">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <button class="button is-link signup-btn">{{ $buttonText }}</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+

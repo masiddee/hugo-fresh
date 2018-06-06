@@ -3,6 +3,9 @@ Section Styles
 ========================================================================== */
 
 .section {
+    .container {
+        z-index: 5;
+    }
     &.section-light-grey {
         background-color: $light-grey;
     }
@@ -10,7 +13,21 @@ Section Styles
         background-color: $section-grey;
     }
     &.section-secondary {
-        background-color: $secondary;
+        background-color: lighten($accent,5%);
+        
+        // CUSTOM AP STYLES
+        &:after {
+          position: absolute;
+          top: 4300px;
+          left: 0;
+          content: "";
+          width: 100%;
+          min-height: 450px;
+          transform-origin: bottom right;
+          transform: skewY(10deg);
+          background: $accent;
+          z-index: 3;
+      }
     }
 }
 

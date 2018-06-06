@@ -17,10 +17,14 @@ Hero styles
 .hero-foot {
     img.partner-logo {
         height: 70px;
+
     }
 }
 
 .hero {
+    .container {
+      z-index: 10;
+    }
     &.is-primary a:not(.button), &.is-info a:not(.button), &.is-danger a:not(.button), &.is-success a:not(.button), &.is-dark a:not(.button)  {
         color: #7a7a7a;
         &:hover {
@@ -82,12 +86,13 @@ Hero styles
         min-height: 450px;
         transform-origin: bottom right;
         transform: skewY(8deg);
-        background: $accent;
-        z-index: -5;
+        background: lighten($secondary, 55%);
+        z-index: 5;
+        opacity: .2;
     }
 
       .big-title {
-        color: $secondary;
+        color: $primary;
     }
 }
 

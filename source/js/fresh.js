@@ -61,7 +61,8 @@ $(function(){
     }
   });
 
-  // --- CUSTOM CODE MS ---
+  // --- BEGIN CUSTOM CODE MS --- //
+
   $('.navbar-menu a').on('click', function() {
     // Get data-scroll-to value
     var scrollTo = $(this).data('scrollTo');
@@ -75,6 +76,68 @@ $(function(){
     }, scrollSpeed);
     return false;
   });
+
+  // Open user signup form modal
+  $('.modal-user-signup').on('click', function() {
+    $('#modal-user-signup').addClass('is-active');
+  });
+
+  // Close user signup form modal
+  $(".modal-user-close").on('click',function() {
+    $("#modal-user-signup").removeClass("is-active");
+  });
+
+  // Open merchant signup form modal
+  $('.modal-merchant-signup').on('click', function() {
+    $('#modal-merchant-signup').addClass('is-active');
+  });
+
+  // Close merchant signup form modal
+  $(".modal-merchant-close").on('click',function() {
+    $("#modal-merchant-signup").removeClass("is-active");
+  });
+
+  // Submit form
+  $('#subscribe-form').on('submit', function(e){
+    e.preventDefault();
+
+    $('#modal-user-signup').append('<img class="loader" src="/img/ap/loading2.gif">');
+    
+    // disable button as soon as the button is clicked
+    $('.signup-btn').attr('disabled','disabled');
+
+    let email = $('#subscriber').val();
+    
+    if(email === ''){
+      // $('#subscriber').addClass('error');
+    }else if(email !== undefined){
+      const options = {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+
+      fetch(`https://rtc-app.herokuapp.com/subscriptions/${email.trim()}`, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if(data.success === true){
+          $('.loader').remove();              
+          $(this).html('<p class="subscribe-success">Thanks for subscribing! We will be in touch with you soon!</p>');
+        }
+      })
+      .catch((err) => {
+        $('.loader').remove();
+        // re-enable submit button on error
+        $(this).removeAttr('disabled');
+      })
+    }
+  });
+
+  // --- END CUSTOM CODE MS --- //
 
   $('#backtotop a').on('click', function() {
     $('html, body').animate({

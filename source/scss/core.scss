@@ -348,3 +348,23 @@ body #backtotop a {
     width: 100%;
     padding-top: 10px;
 }
+
+.modal-card-head {
+  &.is-theme-primary {
+    background-color: lighten($primary, 15%);
+    .modal-card-title {
+      color: $smoke-white;
+    }
+  }
+
+  &.is-theme-secondary {
+    background-color: lighten($secondary, 15%);
+    .modal-card-title {
+      color: $smoke-white;
+    }
+  }
+}
+.modal.container {
+    width: 100%;
+    max-width: 100%;
+}
