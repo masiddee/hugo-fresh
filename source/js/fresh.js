@@ -97,47 +97,96 @@ $(function(){
     $("#modal-merchant-signup").removeClass("is-active");
   });
 
-  // Submit form
-  $('#subscribe-form').on('submit', function(e){
+
+
+  // -------------------------- Submit User form -------------------------- //
+  $('#signup-user-form').on('submit', function(e){
     e.preventDefault();
 
     $('#modal-user-signup').append('<img class="loader" src="/img/ap/loading2.gif">');
     
     // disable button as soon as the button is clicked
-    $('.signup-btn').attr('disabled','disabled');
+    $('.signup-user-btn').attr('disabled','disabled');
 
-    let email = $('#subscriber').val();
-    
-    if(email === ''){
-      // $('#subscriber').addClass('error');
-    }else if(email !== undefined){
-      const options = {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+    let email = $('#user').val();
+    const options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
-
-      fetch(`https://rtc-app.herokuapp.com/subscriptions/${email.trim()}`, options)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if(data.success === true){
-          $('.loader').remove();              
-          $(this).html('<p class="subscribe-success">Thanks for subscribing! We will be in touch with you soon!</p>');
-        }
-      })
-      .catch((err) => {
-        $('.loader').remove();
-        // re-enable submit button on error
-        $(this).removeAttr('disabled');
-      })
     }
+
+    fetch(`https://rtc-app.herokuapp.com/subscriptions/${email.trim()}`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if(data.success === true){
+        $('.loader').remove();              
+        $(this).html('<p class="signup-user-success">Thanks for signing up! We will follow up soon with details to complete the beta enrollment process.</p>');
+      }
+    })
+    .catch((err) => {
+      $('.loader').remove();
+      // re-enable submit button on error
+      $(this).removeAttr('disabled');
+    })
+  
   });
 
+  // -------------------------- Submit Merchant form -------------------------- //
+  $('#signup-merchant-form').on('submit', function(e){
+    e.preventDefault();
+
+    $('#modal-merchant-signup').append('<img class="loader" src="/img/ap/loading2.gif">');
+    // disable button as soon as the button is clicked
+    $('.signup-merchant-btn').attr('disabled','disabled');
+
+    // Get form field values
+    let params = {
+      fname: $('input[name="fname"]').val(),
+      lname: $('input[name="lname"]').val(),
+      email: $('input[name="email"]').val(),
+      website: $('input[name="website"]').val(),
+      visitors: $('select[name="visitors"]').val(),
+      business: $('textarea[name="business"]').val()
+    }
+
+    // let esc = encodeURIComponent;
+    // let query = Object.keys(params).map(k => esc(k) + '=' + esc(params[k].trim())).join('&');
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+
+    fetch(`https://rtc-app.herokuapp.com/subscriptions/merchants`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if(data.success === true){
+        $('.loader').remove();              
+        $(this).html(`<p class="signup-merchant-success">Thanks for requesting early access! Look for a follow up email from us to complete the registration process, and to get the WooCommerce plugin activated for your online shop.</p>`);
+      }
+    })
+    .catch((err) => {
+      $('.loader').remove();
+      // re-enable submit button on error
+      $(this).removeAttr('disabled');
+    })
+  });
+
+
+
   // --- END CUSTOM CODE MS --- //
+
+
 
   $('#backtotop a').on('click', function() {
     $('html, body').animate({

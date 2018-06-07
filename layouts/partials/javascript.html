@@ -1,8 +1,8 @@
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
-<script src="{{ "js/jquery.min.js" | absURL }}"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script> -->
-<script src="{{ "js/modernizr.js" | absURL }}"></script>
-<!-- <script src="{{ "js/jquery-panelslider/jquery.panelslider.min.js" | absURL }}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script src="{{ "js/jquery.min.js" | absURL }}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<!-- <script src="{{ "js/modernizr.js" | absURL }}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"></script>
 
 {{- $jsUrl := printf "js/%s" (index .Site.Data.assetHashes "fresh.js") | absURL }}
 <script src="{{ $jsUrl }}"></script>

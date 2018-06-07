@@ -18,7 +18,7 @@
         <br>
         <p>{{ $tagline2 }}</p>
 
-        <form action="" id="merchant-form" data-parsley-validate>
+        <form action="" id="signup-merchant-form" data-parsley-validate>
           <div class="field is-horizontal">
             <div class="field-label is-normal">
               <label class="label">Name</label>
@@ -26,7 +26,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="text" placeholder="First">
+                  <input class="input" type="text" placeholder="First" name="fname" required="">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -34,7 +34,7 @@
               </div>
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="text" placeholder="Last">
+                  <input class="input" type="text" placeholder="Last" name="lname" required="">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -50,7 +50,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="email" placeholder="Email" value id="subscriber">
+                  <input class="input" type="email" placeholder="Email" name="email" required="">
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                   </span>
@@ -66,7 +66,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="text" placeholder="Your company website" value>
+                  <input class="input" type="text" placeholder="Your company website" name="website" required="">
                   <span class="icon is-small is-left">
                     <i class="fas fa-globe"></i>
                   </span>
@@ -83,13 +83,13 @@
               <div class="field">
                 <div class="control">
                   <div class="select">
-                    <select>
-                      <option>Select amount...</option>
-                      <option>less than 1,000</option>
-                      <option>1,000 - 19,999</option>
-                      <option>20,000 - 49,999</option>
-                      <option>50,000 - 99,999</option>
-                      <option>100,000 or more</option>
+                    <select name="visitors" required="">
+                      <option value="">Select amount...</option>
+                      <option value="less1">less than 1,000</option>
+                      <option value="1plus">1,000 - 19,999</option>
+                      <option value="20plus">20,000 - 49,999</option>
+                      <option value="50plus">50,000 - 99,999</option>
+                      <option value="100plus">100,000 or more</option>
                     </select>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
             <div class="field-body">
               <div class="field">
                 <div class="control">
-                  <textarea class="textarea" placeholder="What does your business sell/do?"></textarea>
+                  <textarea class="textarea" placeholder="What does your business sell/do?" name="business"></textarea>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@
           
           <div class="field is-grouped is-grouped-right">
             <div class="control">
-              <button class="button is-link merchant-signup-btn">{{ $buttonText }}</button>
+              <button class="button is-link signup-merchant-btn">{{ $buttonText }}</button>
             </div>
           </div>
         </form>
