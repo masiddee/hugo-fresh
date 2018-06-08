@@ -123,14 +123,34 @@ $(function(){
     })
     .then((data) => {
       if(data.success === true){
-        $('.loader').remove();              
-        $(this).html('<p class="signup-user-success">Thanks for signing up! We will follow up soon with details to complete the beta enrollment process.</p>');
+        $('.loader').remove();
+        $(this).html(`<article class="message is-success">
+                        <div class="message-header">
+                          <p>Success!</p>
+                        </div>
+                        <div class="message-body">
+                          <p>Thanks for signing up for our mobile app beta!</p> <br>
+                          <p>We will follow up soon with details to complete the beta enrollment process.</p>
+                        </div>
+                      </article>`
+        );
       }
     })
     .catch((err) => {
       $('.loader').remove();
       // re-enable submit button on error
-      $(this).removeAttr('disabled');
+      $('.signup-user-btn').removeAttr('disabled');
+      $(this).html(`<article class="message is-danger">
+                      <div class="message-header">
+                        <p>Error!</p>
+                      </div>
+                      <div class="message-body">
+                        <p>We're Sorry...</p> <br>
+                        <p>It looks like we were unable to complete your request at this time. Please reload the page and try again.</p> <br>
+                        <p>If you still experience this error, shoot us an email at info@aliaspay.io</p>
+                      </div>
+                    </article>`
+      );
     })
   
   });
@@ -153,10 +173,7 @@ $(function(){
       business: $('textarea[name="business"]').val()
     }
 
-    // let esc = encodeURIComponent;
-    // let query = Object.keys(params).map(k => esc(k) + '=' + esc(params[k].trim())).join('&');
-
-    const options = {
+    let options = {
       method: 'POST',
       body: JSON.stringify(params),
       headers: {
@@ -165,20 +182,40 @@ $(function(){
       }
     }
 
-    fetch(`https://rtc-app.herokuapp.com/subscriptions/merchants`, options)
+    fetch(`https://rtc-app.herokuapp.com/subscriptions/merchants/`, options)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       if(data.success === true){
-        $('.loader').remove();              
-        $(this).html(`<p class="signup-merchant-success">Thanks for requesting early access! Look for a follow up email from us to complete the registration process, and to get the WooCommerce plugin activated for your online shop.</p>`);
+        $('.loader').remove();
+        $(this).html(`<article class="message is-success">
+                        <div class="message-header">
+                          <p>Success!</p>
+                        </div>
+                        <div class="message-body">
+                          <p>Thanks for requesting early access to our WooCommerce plugin!</p> <br>
+                          <p>Look for a follow up email from us to complete the registration process, and to get the WooCommerce plugin activated for your online shop.</p>
+                        </div>
+                      </article>`
+        );
       }
     })
     .catch((err) => {
       $('.loader').remove();
       // re-enable submit button on error
-      $(this).removeAttr('disabled');
+      $('.signup-merchant-btn').removeAttr('disabled');
+      $(this).html(`<article class="message is-danger">
+                      <div class="message-header">
+                        <p>Error!</p>
+                      </div>
+                      <div class="message-body">
+                        <p>We're Sorry...</p> <br>
+                        <p>It looks like we were unable to complete your request at this time. Please reload the page and try again.</p> <br>
+                        <p>If you still experience this error, shoot us an email at info@aliaspay.io</p>
+                      </div>
+                    </article>`
+      );
     })
   });
 
