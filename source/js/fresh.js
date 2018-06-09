@@ -117,7 +117,7 @@ $(function(){
       }
     }
 
-    fetch(`https://rtc-app.herokuapp.com/subscriptions/${email.trim()}`, options)
+    fetch(`https://api.aliaspay.io/subscriptions/${email.trim()}`, options)
     .then((response) => {
       return response.json();
     })
@@ -182,7 +182,7 @@ $(function(){
       }
     }
 
-    fetch(`https://rtc-app.herokuapp.com/subscriptions/merchants/`, options)
+    fetch(`https://api.aliaspay.io/subscriptions/merchants/`, options)
     .then((response) => {
       return response.json();
     })
