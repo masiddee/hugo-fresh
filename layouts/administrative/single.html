@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "meta.html" . }}
+    <title>{{ .Site.Title }}</title>
+    {{ partial "css.html" . }}
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NQGKT8C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {{ partial "preloader.html" . }}
+    {{ partial "simple-navbar.html" . }}
+    <section class="section section-light-grey is-fullheight is-default top-padding">
+      
+      <div class="container">
+        <div class="title-wrapper mt-60">
+          <h2 class="title section-title has-text-centered pb-20 heading-primary">{{ .Title }}</h2>
+        </div>
+
+        <div class="columns">
+          <div class="column is-10 is-offset-1">
+            <div class="has-text-centered">
+              {{ .Content }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    {{ partial "simple-footer.html" . }}
+    {{ partial "javascript.html" . }}
+  </body>
+</html>

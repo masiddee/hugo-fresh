@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ partial "meta.html" . }}
+    <title>{{ .Site.Title }}</title>
+    {{ partial "css.html" . }}
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NQGKT8C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {{ partial "preloader.html" . }}
+    {{ partial "simple-navbar.html" . }}
+    <section class="is-fullheight is-default is-bold is-slanted is-theme-secondary top-padding">
+      <h1>{{ .Title }}</h1>
+    </section>
+    
+
+    {{ partial "simple-footer.html" . }}
+
+    {{ partial "javascript.html" . }}
+  </body>
+</html>

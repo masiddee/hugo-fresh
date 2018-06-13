@@ -61,6 +61,83 @@ $(function(){
     }
   });
 
+  $('#backtotop a').on('click', function() {
+    $('html, body').animate({
+      scrollTop: 0
+    }, scrollSpeed);
+    return false;
+  });
+
+  //Preloader
+  $(window).on('load', function() { // makes sure the whole site is loaded
+    $('#status').fadeOut(); // will first fade out the loading animation
+    $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+    $('body').delay(350).css({'overflow':'visible'});
+  })
+
+  //Left Sidebar init and ps-scrollbar init
+  if ($('#panel-trigger').length) {
+    $('#panel-trigger, #panel-close').panelslider({
+      clickClose: false,
+    });
+  }
+
+  //Active sidebar links
+  $(".side-menu-item").click(function() {
+      $(".side-menu-item.is-active").removeClass('is-active');
+      $(this).addClass('is-active');
+      $(this).next('ul').toggle( "slide", function() {
+    });
+  });
+
+  //Active sidebar sublinks
+  $(".side-menu-subitem").click(function() {
+    $(".side-menu-subitem.is-subactive").removeClass('is-subactive');
+    $(this).addClass('is-subactive');
+  });
+
+  //expandable menu caret animation
+  $('a.is-expandable').click(function(){
+    $(this).toggleClass('expanded');
+    $(this).children('i.end-icon').toggleClass('caret-rotate');
+  })
+
+  // Select all links with hashes
+  $('a[href*="#"]')
+    // Remove links that don't actually link to anything
+    .not('[href="#"]')
+    .not('[href="#0"]')
+    .click(function(event) {
+      // On-page links
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
+          location.hostname == this.hostname) {
+          // Figure out element to scroll to
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+          // Does a scroll target exist?
+          if (target.length) {
+            // Only prevent default if animation is actually gonna happen
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: target.offset().top
+            }, 550, function() {
+                // Callback after animation
+                // Must change focus!
+                var $target = $(target);
+                $target.focus();
+                if ($target.is(":focus")) { // Checking if the target was focused
+                    return false;
+                } else {
+                    $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+                    $target.focus(); // Set focus again
+                };
+            });
+          }
+      }
+    });
+
+  
+
   // --- BEGIN CUSTOM CODE MS --- //
 
   $('.navbar-menu a').on('click', function() {
@@ -96,8 +173,6 @@ $(function(){
   $(".modal-merchant-close").on('click',function() {
     $("#modal-merchant-signup").removeClass("is-active");
   });
-
-
 
   // -------------------------- Submit User form -------------------------- //
   $('#signup-user-form').on('submit', function(e){
@@ -219,84 +294,74 @@ $(function(){
     })
   });
 
+  // -------------------------- Submit reset form -------------------------- //
+  $('#password-reset').on('submit', function(e){
+    e.preventDefault();
+    
+    $('#password-reset').append('<img class="loader" src="/img/ap/loading2.gif">');
+    // disable button as soon as the button is clicked
+    $('.password-reset-btn').attr('disabled','disabled');
 
+    // Get the current URL and grab the query string
+    let q = document.URL.split('?')[1];
+    let paramId
+
+    // If query string is not empty, grab the id value from it
+    if(q != undefined) {
+      paramId = q.split('=');
+    }
+
+    // Set the id and confirmed password values
+    let resetBody= {
+      resetId: paramId[1],
+      password: $('#confirm-password').val(),
+    }
+
+    let options = {
+      method: 'PUT',
+      body: JSON.stringify(resetBody),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+
+    fetch(`https://api.aliaspay.io/users/password-reset`, options)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if(data.success === true){
+        $('.loader').remove();
+        $(this).html(`<article class="message is-success">
+                        <div class="message-header">
+                          <p>Password reset successful!</p>
+                        </div>
+                        <div class="message-body">
+                          <p>Please return to the Alias Pay app and try logging in with your new password!</p>
+                        </div>
+                      </article>`
+        );
+      }
+    })
+    .catch((err) => {
+      $('.loader').remove();
+      // re-enable submit button on error
+      $('.signup-user-btn').removeAttr('disabled');
+      $(this).html(`<article class="message is-danger">
+                      <div class="message-header">
+                        <p>Password reset error!</p>
+                      </div>
+                      <div class="message-body">
+                        <p>We're Sorry...</p> <br>
+                        <p>It looks like we were unable to complete your request at this time.</p> <br>
+                        <p>Please contact us at info@aliaspay.io for additional assistance.</p>
+                      </div>
+                    </article>`
+      );
+    })
+  
+  });
 
   // --- END CUSTOM CODE MS --- //
-
-
-
-  $('#backtotop a').on('click', function() {
-    $('html, body').animate({
-      scrollTop: 0
-    }, scrollSpeed);
-    return false;
-  });
-
-  //Preloader
-  $(window).on('load', function() { // makes sure the whole site is loaded
-    $('#status').fadeOut(); // will first fade out the loading animation
-    $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
-    $('body').delay(350).css({'overflow':'visible'});
-  })
-
-  //Left Sidebar init and ps-scrollbar init
-  if ($('#panel-trigger').length) {
-    $('#panel-trigger, #panel-close').panelslider({
-      clickClose: false,
-    });
-  }
-
-  //Active sidebar links
-  $(".side-menu-item").click(function() {
-      $(".side-menu-item.is-active").removeClass('is-active');
-      $(this).addClass('is-active');
-      $(this).next('ul').toggle( "slide", function() {
-    });
-  });
-
-  //Active sidebar sublinks
-  $(".side-menu-subitem").click(function() {
-    $(".side-menu-subitem.is-subactive").removeClass('is-subactive');
-    $(this).addClass('is-subactive');
-  });
-
-  //expandable menu caret animation
-  $('a.is-expandable').click(function(){
-    $(this).toggleClass('expanded');
-    $(this).children('i.end-icon').toggleClass('caret-rotate');
-  })
-
-  // Select all links with hashes
-  $('a[href*="#"]')
-    // Remove links that don't actually link to anything
-    .not('[href="#"]')
-    .not('[href="#0"]')
-    .click(function(event) {
-      // On-page links
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
-          location.hostname == this.hostname) {
-          // Figure out element to scroll to
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-          // Does a scroll target exist?
-          if (target.length) {
-            // Only prevent default if animation is actually gonna happen
-            event.preventDefault();
-            $('html, body').animate({
-                scrollTop: target.offset().top
-            }, 550, function() {
-                // Callback after animation
-                // Must change focus!
-                var $target = $(target);
-                $target.focus();
-                if ($target.is(":focus")) { // Checking if the target was focused
-                    return false;
-                } else {
-                    $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
-                    $target.focus(); // Set focus again
-                };
-            });
-          }
-      }
-    });
 })

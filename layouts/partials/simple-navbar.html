@@ -1,0 +1,23 @@
+{{- $navbar := .Site.Params.navbar -}}
+{{- $logoSrc := printf "img/%s" $navbar.logo.src | absURL -}}
+{{- $logoAlt := $navbar.logo.alt -}}
+{{- $links := $navbar.links -}}
+{{- $buttonText := $navbar.buttonText -}}
+<div class="navbar-wrapper navbar-sticky">
+  <div class="hero-head">
+    <div class="container">
+      <nav class="navbar">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{{ .Site.BaseURL }}">
+            <img class="brand" src="{{ $logoSrc }}" alt="{{ $logoAlt }}">
+          </a>
+        </div>
+        <span class="navbar-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </nav>
+    </div>
+  </div>
+</div>

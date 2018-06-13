@@ -7,6 +7,9 @@ input.input {
     box-shadow: none;
     transition: all 0.8s;
     padding-bottom: 3px;
+    &.is-three-quarters-width {
+        width: 75%;
+    }
     &.is-small {
         padding-bottom: 2px;
         padding-left: 10px;

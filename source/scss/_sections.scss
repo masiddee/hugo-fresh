@@ -47,6 +47,15 @@ Section Styles
     font-size: 2.4rem;
     color: $blue-grey;
     font-weight: 600;
+    &.heading-primary {
+        color: $primary;
+    }
+    &.heading-secondary {
+        color: $secondary;
+    }
+    &.heading-accent {
+        color: $accent;
+    }
 }
 
 .title.section-subtitle {
