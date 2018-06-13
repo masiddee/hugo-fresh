@@ -297,69 +297,152 @@ $(function(){
   // -------------------------- Submit reset form -------------------------- //
   $('#password-reset').on('submit', function(e){
     e.preventDefault();
-    
-    $('#password-reset').append('<img class="loader" src="/img/ap/loading2.gif">');
-    // disable button as soon as the button is clicked
-    $('.password-reset-btn').attr('disabled','disabled');
 
     // Get the current URL and grab the query string
     let q = document.URL.split('?')[1];
-    let paramId
+    let paramId;
 
     // If query string is not empty, grab the id value from it
     if(q != undefined) {
       paramId = q.split('=');
-    }
 
-    // Set the id and confirmed password values
-    let resetBody= {
-      resetId: paramId[1],
-      password: $('#confirm-password').val(),
-    }
+      $('#loader-cont').append('<img class="loader" src="/img/ap/loading2.gif">');
+      // disable button as soon as the button is clicked
+      $('.password-reset-btn').attr('disabled','disabled');
 
-    let options = {
-      method: 'PUT',
-      body: JSON.stringify(resetBody),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+      // Set the id and confirmed password values
+      let resetBody= {
+        resetId: paramId[1],
+        password: $('#confirm-password').val(),
       }
-    }
 
-    fetch(`https://api.aliaspay.io/users/password-reset`, options)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      if(data.success === true){
+      let options = {
+        method: 'PUT',
+        body: JSON.stringify(resetBody),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+
+      fetch(`https://api.aliaspay.io/users/password-reset`, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if(data.success === true){
+          $('.loader').remove();
+          $(this).html(`<article class="message is-success">
+                          <div class="message-header">
+                            <p>Password reset successful!</p>
+                          </div>
+                          <div class="message-body">
+                            <p>Please return to the Alias Pay app and <br> try logging in with your new password!</p>
+                          </div>
+                        </article>`
+          );
+        }
+      })
+      .catch((err) => {
         $('.loader').remove();
-        $(this).html(`<article class="message is-success">
+        $(this).html(`<article class="message is-danger">
                         <div class="message-header">
-                          <p>Password reset successful!</p>
+                          <p>Password reset error!</p>
                         </div>
                         <div class="message-body">
-                          <p>Please return to the Alias Pay app and try logging in with your new password!</p>
+                          <p>We're Sorry...</p> <br>
+                          <p>It looks like we were unable to <br> complete your request at this time.</p> <br>
+                          <p>Please contact us at info@aliaspay.io <br> for additional assistance.</p>
                         </div>
                       </article>`
         );
-      }
-    })
-    .catch((err) => {
-      $('.loader').remove();
-      // re-enable submit button on error
-      $('.signup-user-btn').removeAttr('disabled');
+      })
+    }else{
       $(this).html(`<article class="message is-danger">
-                      <div class="message-header">
-                        <p>Password reset error!</p>
-                      </div>
-                      <div class="message-body">
-                        <p>We're Sorry...</p> <br>
-                        <p>It looks like we were unable to complete your request at this time.</p> <br>
-                        <p>Please contact us at info@aliaspay.io for additional assistance.</p>
-                      </div>
-                    </article>`
+                        <div class="message-header">
+                          <p>Password reset error!</p>
+                        </div>
+                        <div class="message-body">
+                          <p>We were unable to find a reset ID.</p> <br>
+                          <p>Please click on the link in the <br> password reset email to try again.</p> <br>
+                          <p>If this still does not work, <br> please contact us at info@aliaspay.io.</p>
+                        </div>
+                      </article>`
+        );
+    }
+
+  });
+
+  // -------------------------- Account Verify form -------------------------- //
+  $('.account-verify-btn').on('click', function(e){
+    e.preventDefault();
+
+    // Get the current URL and grab the query string
+    let q = document.URL.split('?')[1];
+    let paramId;
+
+    // If query string is not empty, grab the id value from it
+    if(q != undefined) {
+      paramId = q.split('=');
+      
+      $('#loader-cont').append('<img class="loader" src="/img/ap/loading2.gif">');
+      // disable button as soon as the button is clicked
+      $('.account-verify-btn').attr('disabled','disabled');
+
+      let options = {
+        method: 'PUT',
+        body: JSON.stringify(paramId[1]),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+
+      fetch(`https://api.aliaspay.io/users/account-verification`, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if(data.success === true){
+          $('.loader').remove();
+          $(this).parent().html(`<article class="message is-success">
+                          <div class="message-header">
+                            <p>Account successfully verified!</p>
+                          </div>
+                          <div class="message-body">
+                            <p>Please return to the Alias Pay app <br> to add your fiest Alias Card.</p>
+                          </div>
+                        </article>`
+          );
+        }
+      })
+      .catch((err) => {
+        $('.loader').remove();
+        $(this).parent().html(`<article class="message is-danger">
+                        <div class="message-header">
+                          <p>Account verification error!</p>
+                        </div>
+                        <div class="message-body">
+                          <p>We're Sorry...</p> <br>
+                          <p>It looks like we were unable to <br> complete your request at this time.</p> <br>
+                          <p>Please contact us at info@aliaspay.io <br> for additional assistance.</p>
+                        </div>
+                      </article>`
+        );
+      })
+    }else{
+      $(this).parent().html(`<article class="message is-danger">
+                        <div class="message-header">
+                          <p>No Account ID found</p>
+                        </div>
+                        <div class="message-body">
+                          <p>We were unable to find your account ID.</p> <br>
+                          <p>Please resend the account verification <br> link and try to verify again.</p> <br>
+                          <p>If this still does not work, <br> please contact us at info@aliaspay.io.</p>
+                        </div>
+                      </article>`
       );
-    })
+    }
   
   });
 
